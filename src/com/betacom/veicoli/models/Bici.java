@@ -5,4 +5,38 @@ public class Bici extends Veicoli{
 	private String tipoFreno; // tamburo, disco
 	private String tipoSospenzione; // senza, mono, bi
 	private Boolean piegevole;
+	
+	public Integer getNumeroMarce() {
+		return numeroMarce;
+	}
+	public void setNumeroMarce(Integer numeroMarce) {
+		this.numeroMarce = numeroMarce;
+	}
+	public String getTipoFreno() {
+		return tipoFreno;
+	}
+	public void setTipoFreno(String tipoFreno) {
+		this.tipoFreno = tipoFreno;
+	}
+	public String getTipoSospenzione() {
+		return tipoSospenzione;
+	}
+	public void setTipoSospenzione(String tipoSospenzione) {
+		this.tipoSospenzione = tipoSospenzione;
+	}
+	public Boolean getPiegevole() {
+		return piegevole;
+	}
+	public void setPiegevole(Boolean piegevole) {
+		this.piegevole = piegevole;
+	}
+	@Override
+	public String toString() {
+		return "Bici [Id=" + getId() + ", TipoVeicolo=" + getTipoVeicolo() + ", NumeroRuote="
+				+ getNumeroRuote() + ", TipoAlimentazione=" + getTipoAlimentazione() + ", Categoria="
+				+ getCategoria() + ", getColore()=" + getColore() + ", getMarca()=" + getMarca()
+				+ ", AnnoProduzione=" + getAnnoProduzione() + ", Modello=" + getModello() 
+				+ ", numeroMarche=" + numeroMarce + ", tipoSospenzione=" + tipoSospenzione + ", piegevole="
+				+ piegevole +"]";
+	}
 }
