@@ -3,11 +3,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.betacom.veicoli.MainVeicoli;
 import com.betacom.veicoli.services.ListImpl;
 import com.betacom.veicoli.services.implmentations.BiciImpl;
 import com.betacom.veicoli.services.implmentations.MacchinaImpl;
 import com.betacom.veicoli.services.implmentations.MotoImpl;
 import com.betacom.veicoli.services.interfaces.VeicoliAbstract;
+import com.betacom.veicoli.utilities.Utils;
 
 public class StartVeicolo {
 	public final static int OPERATION=0;
@@ -21,8 +23,9 @@ public class StartVeicolo {
 		serv.put("bici", new BiciImpl());
 		serv.put("list", new ListImpl());
 		
+		Utils.writeFile(MainVeicoli.PATH_OUPUT, "************", false);
 		
-		for (String para:params) {
+		params.forEach(para -> {
 			String[] inp = para.split(";");
 			String operation = inp[OPERATION].trim();
 			try {
@@ -45,8 +48,9 @@ public class StartVeicolo {
 				System.out.println("error:" + e.getMessage());
 			}
 			
+		});
 			
 			
-		}
+		
 	}
 }

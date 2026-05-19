@@ -1,6 +1,7 @@
 package com.betacom.veicoli.singleton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,41 +29,39 @@ public class ListManager {
 		return instance;
 	}
 	
-	public  void loadConstant() {
-		List<String> cons = new ArrayList<String>();
-		cons.add("alim=benzina,diesel,electica,ibrida,manuale");
-		cons.add("cat=strada,fuoristrada,suv,mtb,cross");
-		cons.add("colore=bianco,nero,verde,giallo,marrone,rosso");
-		cons.add("marca=Fiat,Renault,BMW,Telsla,Bianchi,Yamaha,Mercedes,Tecnizer");
-		cons.add("sospenzione=senza,mono,bi");
-		
-		for (String it:cons) {
-			String [] el = it.split("=");
-			String [] elP = el[1].split(",");
-			controlli.put(el[0], elP);			
-		}
+	public void loadConstant() {
+		List<String> cons = List.of(
+				"alim=benzina,diesel,electica,ibrida,manuale",
+				"cat=strada,fuoristrada,suv,mtb,cross",
+				"colore=bianco,nero,verde,giallo,marrone,rosso",
+				"marca=Fiat,Renault,BMW,Telsla,Bianchi,Yamaha,Mercedes,Tecnizer",
+				"sospenzione=senza,mono,bi"
+		);
+		cons.forEach(it -> {
+			String[] el = it.split("=");
+			controlli.put(el[0], el[1].split(","));
+		});
+
 	}
 	
 	public boolean isValidValue(String key, String value) {
-		String[] values = controlli.get(key);
-		boolean ret = false;
-		for (String it:values) {
-			if (value.equalsIgnoreCase(it)) {
-				ret = true;
-				break;
-			}			
-		}
-		return ret;
+	    String[] values = controlli.get(key);
+	    return Arrays.stream(values)
+	            .anyMatch(it -> value.equalsIgnoreCase(it));
 	}
 	
 	public boolean isTargaExist(String targa) {
-		if (lTarge.containsKey(targa))
-			return true;
-		
-		lTarge.put(targa.toUpperCase(), "");
-		return false;	
-		
+	    return lTarge.putIfAbsent(targa.toUpperCase(), "") != null;  // return null se non esiste valore della targa se esiste
 	}
+	
+//	public boolean isTargaExist(String targa) {
+//		if (lTarge.containsKey(targa))
+//			return true;
+//		
+//		lTarge.put(targa.toUpperCase(), "");
+//		return false;	
+//		
+//	}
 	
 	public Veicoli insertVeicolo(Veicoli v) {
 		v.setId(++id);
@@ -72,12 +71,8 @@ public class ListManager {
 	}
 
 	public void remove(Integer id) {
-		for (Veicoli it:listV) {
-			if (it.getId() == id) {
-				listV.remove(it);
-				break;
-			}
-		}
+	    listV.removeIf(it -> it.getId() == id);
+
 	}
 
 	public List<Veicoli> getListV() {

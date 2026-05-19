@@ -1,5 +1,6 @@
 package com.betacom.veicoli.services.interfaces;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,10 +50,10 @@ public abstract class VeicoliAbstract {
 		
 		try {
 			vei.setAnnoProduzione(Integer.parseInt(params.get("anno")));			
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			throw new Exception("Anno produzione invalida");
 		}
-		if (vei.getAnnoProduzione() < 2000 || vei.getAnnoProduzione() > 2026)
+		if (vei.getAnnoProduzione() < LocalDate.now().getYear() - 20 || vei.getAnnoProduzione() > LocalDate.now().getYear())
 			throw new Exception("Anno produzione invalida");
 		
 		vei.setModello(params.get("modello"));
