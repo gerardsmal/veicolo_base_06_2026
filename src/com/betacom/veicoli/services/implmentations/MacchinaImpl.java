@@ -6,19 +6,16 @@ import com.betacom.veicoli.models.Macchina;
 import com.betacom.veicoli.services.interfaces.VeicoliAbstract;
 import com.betacom.veicoli.singleton.ListManager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MacchinaImpl extends VeicoliAbstract{
 	@Override
-	public void controlExecute(String oper,String params) throws Exception {
-		System.out.println("Execute Macchina " + oper);	
+	public void add(String oper, String params) throws Exception{
+		log.info("Execute Macchina " + oper);	
 		
 		Map<String, String> p = decodeParamers(params);
-		if (oper.equalsIgnoreCase("add")) 
-			addVeicolo(p);
-		else if (oper.equalsIgnoreCase("delete")) 
-			deleteVeicolo(p);
-	}
-	
-	private void addVeicolo(Map<String, String> p) throws Exception {
+
 		Macchina mac = new Macchina();
 		mac.setTipoVeicolo("macchina");
 		
@@ -41,7 +38,7 @@ public class MacchinaImpl extends VeicoliAbstract{
 		}
 		
 		mac = (Macchina) ListManager.getInstance().insertVeicolo(mac);
-		System.out.println("Macchina inserita");
+		log.info("Macchina inserita");
 	}
 
 }

@@ -1,12 +1,9 @@
 package com.betacom.veicoli.utilities;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
@@ -46,5 +43,15 @@ public class Utils {
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+	public static boolean isNumeric(String numero) {
+		if (!numero.matches("\\d+")) return false;
+		return true;
+	}
+	
+	public static String buildClassName(String par) {
+		 if (par == null || par.isBlank()) return par;
+		    
+		return par.substring(0, 1).toUpperCase() + par.substring(1).toLowerCase() + "Impl";
 	}
 }

@@ -6,21 +6,14 @@ import com.betacom.veicoli.models.Moto;
 import com.betacom.veicoli.services.interfaces.VeicoliAbstract;
 import com.betacom.veicoli.singleton.ListManager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MotoImpl extends VeicoliAbstract{
 
 	@Override
-	public void controlExecute(String oper, String params) throws Exception {
-		System.out.println("Execute MOTO");
-		
+	public void add(String oper, String params) throws Exception{
 		Map<String, String> p = decodeParamers(params);
-		if (oper.equalsIgnoreCase("add")) 
-			addVeicolo(p);
-		else if (oper.equalsIgnoreCase("delete")) 
-			deleteVeicolo(p);
-		
-	}
-	
-	private void addVeicolo(Map<String, String> p) throws Exception {
 		Moto moto = new Moto();
 		moto.setTipoVeicolo("moto");
 		
@@ -37,7 +30,7 @@ public class MotoImpl extends VeicoliAbstract{
 		}
 		
 		moto = (Moto) ListManager.getInstance().insertVeicolo(moto);
-		System.out.println("Moto inserita");
+		log.info("Moto inserita");
 
 	}
 

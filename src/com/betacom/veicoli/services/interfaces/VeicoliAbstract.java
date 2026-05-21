@@ -7,9 +7,10 @@ import java.util.Map;
 import com.betacom.veicoli.models.Veicoli;
 import com.betacom.veicoli.singleton.ListManager;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public abstract class VeicoliAbstract {
 	
-	public abstract void controlExecute(String ope,String params) throws Exception;
 	
 	public Map<String, String> decodeParamers(String para){
 		String[] p = para.split(",");
@@ -62,13 +63,22 @@ public abstract class VeicoliAbstract {
 		return vei;
 	}
 
-	public void deleteVeicolo(Map<String, String> p) throws Exception {
-		System.out.println("deleteVeicolo:" + p);
+	public void add(String ope, String params) throws Exception{
+		
+	}
+		
+	public void delete(String ope, String params) throws Exception {
+		Map<String, String> p = decodeParamers(params);
+		log.info("deleteVeicolo: {}" , p);
 		if (p.get("id") == null) {
 			throw new Exception("id mancante per remove");
 		}
 		ListManager.getInstance().remove(Integer.parseInt(p.get("id")));
-		System.out.println("Macchina cancellata");
+		log.info("Macchina cancellata");
+	}
+
+	public void list(String ope, String params) throws Exception{
+		
 	}
 
 }
